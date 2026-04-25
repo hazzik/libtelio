@@ -10,6 +10,7 @@ fi
 find target -name "nordvpnlite.sha256" -delete 2>/dev/null || true
 
 docker run --platform=linux/amd64 --rm \
+    -e BYPASS_LLT_SECRETS=1 \
     -v "$PWD":/project \
     -v libtelio-cargo-registry:/usr/local/cargo/registry \
     -v libtelio-cargo-git:/usr/local/cargo/git \
@@ -19,7 +20,7 @@ docker run --platform=linux/amd64 --rm \
 
 ls -lh dist/openwrt/release/mips/nordvpnlite
 
-exit 1
+exit 0
 
 upx --best dist/openwrt/release/mips/nordvpnlite
 
