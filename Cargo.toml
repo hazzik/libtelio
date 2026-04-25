@@ -119,8 +119,8 @@ itertools = "0.14"
 lazy_static = "1.5"
 libc = "0.2"
 tracing = { version = "0.1", features = [
-  "max_level_trace",
-  "release_max_level_debug",
+  "max_level_info",
+  "release_max_level_info",
 ] }
 maplit = "1"
 mockall = "0.14"
@@ -209,7 +209,7 @@ telio-pq = { version = "0.1.0", path = "./crates/telio-pq" }
 telio-pinger = { version = "0.1.0", path = "./crates/telio-pinger" }
 
 [profile.release]
-opt-level = "s"
+opt-level = "z"
 lto = true
 codegen-units = 1
 debug = "full"
