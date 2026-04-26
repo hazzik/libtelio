@@ -208,6 +208,7 @@ LIBTELIO_CONFIG = {
         "packages": {
             "nordvpnlite": {"nordvpnlite": "nordvpnlite"},
         },
+        "build_args": ["--no-default-features"],
     },
     "windows": {
         "archs": {
