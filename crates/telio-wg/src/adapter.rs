@@ -1,4 +1,5 @@
 #[warn(missing_docs)]
+#[cfg(feature = "neptun")]
 #[cfg(any(not(windows), doc))]
 #[cfg_attr(docsrs, doc(cfg(not(windows))))]
 mod neptun;
@@ -99,7 +100,7 @@ pub trait Adapter: Send + Sync {
 #[derive(Debug, TError)]
 pub enum Error {
     /// Error types from NepTUN implementation
-    #[cfg(not(windows))]
+    #[cfg(all(not(windows), feature = "neptun"))]
     #[error("NepTUN adapter error {0}")]
     NepTUN(#[from] ::neptun::device::Error),
 
@@ -255,6 +256,11 @@ pub(crate) async fn start(cfg: Config) -> Result<Box<dyn Adapter>, Error> {
 
     match cfg.adapter {
         AdapterType::NepTUN => {
+            #[cfg(not(feature = "neptun"))]
+            return Err(Error::UnsupportedAdapter);
+
+            #[cfg(feature = "neptun")]
+            {
             #[cfg(windows)]
             return Err(Error::UnsupportedAdapter);
 
@@ -273,6 +279,7 @@ pub(crate) async fn start(cfg: Config) -> Result<Box<dyn Adapter>, Error> {
                 cfg.inter_thread_channel_size,
                 cfg.max_inter_thread_batched_pkts,
             )?))
+            }
         }
         AdapterType::LinuxNativeWg => {
             #[cfg(not(target_os = "linux"))]

@@ -10,11 +10,12 @@ repository = "https://github.com/NordSecurity/libtelio"
 crate-type = ["cdylib", "lib"]
 
 [features]
-default = ["enable_ens", "enable_firewall"]
+default = ["enable_ens", "enable_firewall", "neptun"]
 pretend_to_be_macos = ["telio-model/pretend_to_be_macos"]
 disable_ens = []
 enable_ens = ["telio-proto/enable_ens"]
 enable_firewall = ["telio-firewall"]
+neptun = ["telio-wg/neptun"]
 
 [dependencies]
 cfg-if = "1.0.4"
@@ -56,7 +57,7 @@ telio-starcast.workspace = true
 telio-task.workspace = true
 telio-traversal.workspace = true
 telio-utils.workspace = true
-telio-wg.workspace = true
+telio-wg = { workspace = true, default-features = false }
 once_cell.workspace = true
 nat-detect.workspace = true
 time.workspace = true
@@ -204,7 +205,7 @@ telio-task = { version = "0.1.0", path = "./crates/telio-task" }
 telio-test = { version = "1.0.0", path = "./crates/telio-test" }
 telio-traversal = { version = "0.1.0", path = "./crates/telio-traversal" }
 telio-utils = { version = "0.1.0", path = "./crates/telio-utils" }
-telio-wg = { version = "0.1.0", path = "./crates/telio-wg" }
+telio-wg = { version = "0.1.0", path = "./crates/telio-wg", default-features = false }
 telio-pq = { version = "0.1.0", path = "./crates/telio-pq" }
 telio-pinger = { version = "0.1.0", path = "./crates/telio-pinger" }
 
